@@ -1,0 +1,43 @@
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000"
+    tools:context=".MainActivity" >
+	<FrameLayout 
+	    android:id="@+id/surfaceViewContainer"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="2"
+	    />
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:orientation="horizontal"
+	    android:layout_weight="1"
+	    android:padding="20dp"
+	    >
+	    <Button 
+	        android:id="@+id/btnReset"
+	        android:layout_weight="1"
+	        android:layout_height="match_parent"
+	        android:layout_width="0dp"
+	        android:text="RESET"
+	        android:background="@drawable/red_selector"
+	        android:textColor="@drawable/red_text_selector"
+	        android:layout_margin="10dp"
+	        />
+	    <Button 
+	        android:id="@+id/btnStart"
+	        android:layout_weight="1"
+	        android:layout_height="match_parent"
+	        android:layout_width="0dp"
+	        android:text="START"
+	        android:background="@drawable/red_selector"
+	        android:textColor="@drawable/red_text_selector"
+	        android:layout_margin="10dp"
+	        />
+	</LinearLayout>
+</LinearLayout>
