@@ -28,6 +28,8 @@
 	        android:background="@drawable/red_selector"
 	        android:textColor="@drawable/red_text_selector"
 	        android:layout_margin="10dp"
+	        android:textStyle="bold"
+	        android:textSize="32sp"
 	        />
 	    <Button 
 	        android:id="@+id/btnStart"
@@ -38,6 +40,8 @@
 	        android:background="@drawable/red_selector"
 	        android:textColor="@drawable/red_text_selector"
 	        android:layout_margin="10dp"
+	        android:textStyle="bold"
+	        android:textSize="32sp"
 	        />
 	</LinearLayout>
 </LinearLayout>
