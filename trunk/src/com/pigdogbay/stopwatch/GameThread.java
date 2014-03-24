@@ -2,6 +2,10 @@ package com.pigdogbay.stopwatch;
 
 public class GameThread extends Thread
 {
+	public interface GameThreadClient{
+		void Update();
+		void Render();
+	}
 	//Number of frames with a delay of 0ms before the
 	//animation thread yields to other running threads
 	private static final int NO_DELAYS_PER_YIELD=16;
@@ -9,13 +13,13 @@ public class GameThread extends Thread
 	//(The game is updated but not rendered)
 	private static final int MAX_FRAME_SKIPS=5;
 	private final static long FPS = 30L;
-	//period betwen frames in nanoseconds
+	//period between frames in nanoseconds
 	private static final long PERIOD = 1000000000L/FPS; 
 	
-	private GameView _GameView;
+	private GameThreadClient _GameView;
     private boolean _Running=false;
     
-	public GameThread(GameView game)
+	public GameThread(GameThreadClient game)
 	{
 		_GameView = game;
 	}
