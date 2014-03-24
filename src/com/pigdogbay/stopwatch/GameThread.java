@@ -16,12 +16,12 @@ public class GameThread extends Thread
 	//period between frames in nanoseconds
 	private static final long PERIOD = 1000000000L/FPS; 
 	
-	private GameThreadClient _GameView;
+	private GameThreadClient _Client;
     private boolean _Running=false;
     
-	public GameThread(GameThreadClient game)
+	public GameThread(GameThreadClient client)
 	{
-		_GameView = game;
+		_Client = client;
 	}
 	public void pause()
 	{
@@ -43,8 +43,8 @@ public class GameThread extends Thread
 		_Running=true;
 		while(_Running)
 		{
-			_GameView.Update();
-			_GameView.Render();
+			_Client.Update();
+			_Client.Render();
 			
 			//measure time to update,render and paint
 			afterTime = System.nanoTime();
@@ -82,7 +82,7 @@ public class GameThread extends Thread
 				//decrease excess
 				excessTime-=PERIOD;
 				//update state but don't render
-				_GameView.Update();
+				_Client.Update();
 				skips++;
 			}
 		}
