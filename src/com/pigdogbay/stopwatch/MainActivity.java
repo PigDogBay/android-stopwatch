@@ -2,6 +2,7 @@ package com.pigdogbay.stopwatch;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,7 +47,24 @@ public class MainActivity extends Activity implements IView {
 		_Presenter = new Presenter(model, this);
 		
 	}
-	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.v("MPDB", "onResume");
+		_GameView.resume();
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.v("MPDB", "onPause");
+		_GameView.pause();
+	}
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		Log.v("MPDB", "onWindowFocusChange");
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
