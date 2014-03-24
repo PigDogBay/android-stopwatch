@@ -16,7 +16,7 @@ public class StopWatchGame implements IGame{
 		_Model = model;
 		_TextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		_TextPaint.setColor(Color.RED);
-		_TextPaint.setTextSize(72);
+		_TextPaint.setTextSize(160);
 		_SimpleDateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
 		
 	}
@@ -31,7 +31,7 @@ public class StopWatchGame implements IGame{
 	public void Render(Canvas c) {
 		String time = _SimpleDateFormat.format(new java.util.Date(_Model.getElapsedTime()));
 		c.drawColor(Color.BLACK);
-		c.drawText(time, 200, 200, _TextPaint);
+		c.drawText(time, 50, 250, _TextPaint);
 		
 	}
 
