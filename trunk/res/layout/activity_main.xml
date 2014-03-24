@@ -29,7 +29,7 @@
 	        android:textColor="@drawable/red_text_selector"
 	        android:layout_margin="10dp"
 	        android:textStyle="bold"
-	        android:textSize="32sp"
+	        android:textSize="96sp"
 	        />
 	    <Button 
 	        android:id="@+id/btnStart"
@@ -41,7 +41,7 @@
 	        android:textColor="@drawable/red_text_selector"
 	        android:layout_margin="10dp"
 	        android:textStyle="bold"
-	        android:textSize="32sp"
+	        android:textSize="96sp"
 	        />
 	</LinearLayout>
 </LinearLayout>
