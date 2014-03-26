@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements IView {
 	private void loadResources()
 	{
 		AssetsReader assets = new AssetsReader(this);
-		_StopWatchGame.setDigitsBitmap(assets.loadBitmap("digits.png", Config.RGB_565));
+		_StopWatchGame.setDigitsBitmap(assets.loadBitmap("digits_red.png", Config.RGB_565));
 		assets.close();
 	}
 	
