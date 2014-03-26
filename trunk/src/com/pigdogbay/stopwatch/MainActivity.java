@@ -1,9 +1,12 @@
 package com.pigdogbay.stopwatch;
 
+import com.pigdogbay.androidutils.games.AssetsReader;
+import com.pigdogbay.androidutils.games.GameView;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Bitmap.Config;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -44,9 +47,17 @@ public class MainActivity extends Activity implements IView {
 				_Presenter.reset();
 			}
 		});
+		loadResources();
 		_Presenter = new Presenter(model, this);
 		
 	}
+	private void loadResources()
+	{
+		AssetsReader assets = new AssetsReader(this);
+		_StopWatchGame.setDigitsBitmap(assets.loadBitmap("digits.png", Config.RGB_565));
+		assets.close();
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -64,12 +75,6 @@ public class MainActivity extends Activity implements IView {
 		super.onWindowFocusChanged(hasFocus);
 		Log.v("MPDB", "onWindowFocusChange");
 		
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 	@Override
