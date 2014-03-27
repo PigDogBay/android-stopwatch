@@ -39,11 +39,11 @@ public class MainActivity extends Activity implements IView {
 	}
 	private void loadResources()
 	{
+		//Don't close the asset manager, as we will need if onCreate is called again
 		AssetsReader assets = new AssetsReader(this);
 		_StopWatchGame._DigitsBitmap =  assets.loadBitmap("digits_red.png", Config.RGB_565);
 		_StopWatchGame._ResetBmp =  assets.loadBitmap("reset.png", Config.RGB_565);
 		_StopWatchGame._StartBmp =  assets.loadBitmap("start.png", Config.RGB_565);
-		assets.close();
 	}
 	
 	@Override
