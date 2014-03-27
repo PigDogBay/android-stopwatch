@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 
 public class StopWatchGame implements IGame{
 
-	final static int DIGIT_WIDTH = 240;
+	final static int DIGIT_WIDTH = 100;
 	final static int DIGIT_HEIGHT = 320;
 
 	Model _Model;
@@ -22,7 +22,7 @@ public class StopWatchGame implements IGame{
 	
 	public StopWatchGame(Model model){
 		_Model = model;
-        _Buffer = new FrameBuffer(12*240, 320);
+        _Buffer = new FrameBuffer(1280, 320);
 	}
 
 	@Override
