@@ -29,24 +29,10 @@ public class MainActivity extends Activity implements IView {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		setContentView(R.layout.activity_main);
 		Model model = new Model();
 		_StopWatchGame = new StopWatchGame(model);
 		_GameView = new GameView(this, _StopWatchGame);
-		((ViewGroup)findViewById(R.id.surfaceViewContainer)).addView(_GameView);
-		_StartStopBtn = (Button) findViewById(R.id.btnStart);
-		_StartStopBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				_Presenter.toggleTimer();
-			}
-		});
-		((Button) findViewById(R.id.btnReset)).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				_Presenter.reset();
-			}
-		});
+		setContentView(_GameView);
 		loadResources();
 		_Presenter = new Presenter(model, this);
 		
@@ -54,7 +40,9 @@ public class MainActivity extends Activity implements IView {
 	private void loadResources()
 	{
 		AssetsReader assets = new AssetsReader(this);
-		_StopWatchGame.setDigitsBitmap(assets.loadBitmap("digits_red.png", Config.RGB_565));
+		_StopWatchGame._DigitsBitmap =  assets.loadBitmap("digits_red.png", Config.RGB_565);
+		_StopWatchGame._ResetBmp =  assets.loadBitmap("reset.png", Config.RGB_565);
+		_StopWatchGame._StartBmp =  assets.loadBitmap("start.png", Config.RGB_565);
 		assets.close();
 	}
 	
@@ -79,13 +67,11 @@ public class MainActivity extends Activity implements IView {
 
 	@Override
 	public void showPaused() {
-		_StartStopBtn.setText("START");
 		
 	}
 
 	@Override
 	public void showRunning() {
-		_StartStopBtn.setText("STOP");
 		
 	}
 

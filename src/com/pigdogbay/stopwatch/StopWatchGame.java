@@ -12,17 +12,13 @@ public class StopWatchGame implements IGame{
 	final static int DIGIT_HEIGHT = 320;
 
 	Model _Model;
-	Bitmap _DigitsBitmap;
+	public Bitmap _DigitsBitmap, _StartBmp, _ResetBmp;
 	FrameBuffer _Buffer;
 	TimeDigits _TimeDigits = new TimeDigits();
 
-	public void setDigitsBitmap(Bitmap value){
-		_DigitsBitmap = value;
-	}
-	
 	public StopWatchGame(Model model){
 		_Model = model;
-        _Buffer = new FrameBuffer(1280, 320);
+        _Buffer = new FrameBuffer(1280, 800);
 	}
 
 	@Override
@@ -33,8 +29,12 @@ public class StopWatchGame implements IGame{
 	public void Render(Canvas c) {
 		int[] digits = _TimeDigits.Digits;
 		for (int i=0;i<12;i++){
-			_Buffer.draw(_DigitsBitmap,DIGIT_WIDTH*i,0,digits[i]*DIGIT_WIDTH,0,DIGIT_WIDTH, DIGIT_HEIGHT);
+			_Buffer.draw(_DigitsBitmap,40+DIGIT_WIDTH*i,40,digits[i]*DIGIT_WIDTH,0,DIGIT_WIDTH, DIGIT_HEIGHT);
 		}
+		//Draw buttons
+		_Buffer.draw(_ResetBmp,40,440);
+		_Buffer.draw(_StartBmp,640,440);
+		
 		_Buffer.scaleToFit(c);
 		
 	}
