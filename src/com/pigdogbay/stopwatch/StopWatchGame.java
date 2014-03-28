@@ -1,29 +1,41 @@
 package com.pigdogbay.stopwatch;
 
+import java.util.List;
+
 import com.pigdogbay.androidutils.games.FrameBuffer;
 import com.pigdogbay.androidutils.games.GameView.IGame;
+import com.pigdogbay.androidutils.games.TouchEvent;
+import com.pigdogbay.androidutils.games.TouchHandler;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 public class StopWatchGame implements IGame{
 
+	public static final int BUFFER_HEIGHT = 800;
+	public static final int BUFFER_WIDTH = 1280;
 	final static int DIGIT_WIDTH = 100;
 	final static int DIGIT_HEIGHT = 320;
-
+	
 	Model _Model;
 	public Bitmap _DigitsBitmap, _StartBmp, _ResetBmp;
 	FrameBuffer _Buffer;
 	TimeDigits _TimeDigits = new TimeDigits();
+	TouchHandler _TouchHandler;
 
 	public StopWatchGame(Model model){
 		_Model = model;
-        _Buffer = new FrameBuffer(1280, 800);
+        _Buffer = new FrameBuffer(BUFFER_WIDTH, BUFFER_HEIGHT);
+	}
+	
+	public void setTouchHandler(TouchHandler touch){
+		_TouchHandler = touch;
 	}
 
 	@Override
 	public void Update() {
 		_TimeDigits.updateTime(_Model.getElapsedTime());
+		List<TouchEvent> touchEvents = _TouchHandler.getTouchEvents();
 	}
 	@Override
 	public void Render(Canvas c) {

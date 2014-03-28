@@ -2,6 +2,7 @@ package com.pigdogbay.stopwatch;
 
 import com.pigdogbay.androidutils.games.AssetsReader;
 import com.pigdogbay.androidutils.games.GameView;
+import com.pigdogbay.androidutils.games.MultiTouchHandler;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -35,6 +36,13 @@ public class MainActivity extends Activity implements IView {
 		setContentView(_GameView);
 		loadResources();
 		_Presenter = new Presenter(model, this);
+        float scaleX = (float) StopWatchGame.BUFFER_WIDTH
+                / getWindowManager().getDefaultDisplay().getWidth();
+        float scaleY = (float) StopWatchGame.BUFFER_HEIGHT
+                / getWindowManager().getDefaultDisplay().getHeight();
+        MultiTouchHandler touch = new MultiTouchHandler(_GameView, scaleX,scaleY);
+        _StopWatchGame.setTouchHandler(touch);
+
 		
 	}
 	private void loadResources()
