@@ -1,0 +1,13 @@
+package com.pigdogbay.stopwatch;
+
+import android.graphics.Bitmap;
+
+public class Assets {
+
+	public static Bitmap StartBtn;
+	public static Bitmap StopBtn;
+	public static Bitmap PauseBtn;
+	public static Bitmap ResetBtn;
+	public static Bitmap DigitsSheet;
+	
+}
