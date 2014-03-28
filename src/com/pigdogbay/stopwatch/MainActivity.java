@@ -8,20 +8,15 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap.Config;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class MainActivity extends Activity implements IView {
+public class MainActivity extends Activity{
 
 	GameView _GameView;
 	StopWatchGame _StopWatchGame;
 	Button _StartStopBtn;
-	
-	Presenter _Presenter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +30,13 @@ public class MainActivity extends Activity implements IView {
 		_GameView = new GameView(this, _StopWatchGame);
 		setContentView(_GameView);
 		loadResources();
-		_Presenter = new Presenter(model, this);
         float scaleX = (float) StopWatchGame.BUFFER_WIDTH
                 / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float) StopWatchGame.BUFFER_HEIGHT
                 / getWindowManager().getDefaultDisplay().getHeight();
         MultiTouchHandler touch = new MultiTouchHandler(_GameView, scaleX,scaleY);
         _StopWatchGame.setTouchHandler(touch);
+        _StopWatchGame.initialize();
 
 		
 	}
@@ -49,9 +44,10 @@ public class MainActivity extends Activity implements IView {
 	{
 		//Don't close the asset manager, as we will need if onCreate is called again
 		AssetsReader assets = new AssetsReader(this);
-		_StopWatchGame._DigitsBitmap =  assets.loadBitmap("digits_red.png", Config.RGB_565);
-		_StopWatchGame._ResetBmp =  assets.loadBitmap("reset.png", Config.RGB_565);
-		_StopWatchGame._StartBmp =  assets.loadBitmap("start.png", Config.RGB_565);
+		Assets.DigitsSheet =  assets.loadBitmap("digits_red.png", Config.RGB_565);
+		Assets.ResetBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
+		Assets.StartBtn =  assets.loadBitmap("start.png", Config.RGB_565);
+		Assets.StopBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
 	}
 	
 	@Override
@@ -70,16 +66,6 @@ public class MainActivity extends Activity implements IView {
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		Log.v("MPDB", "onWindowFocusChange");
-		
-	}
-
-	@Override
-	public void showPaused() {
-		
-	}
-
-	@Override
-	public void showRunning() {
 		
 	}
 
