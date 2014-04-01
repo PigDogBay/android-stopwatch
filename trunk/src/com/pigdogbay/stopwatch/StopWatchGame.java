@@ -9,6 +9,8 @@ import com.pigdogbay.androidutils.games.TouchHandler;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 public class StopWatchGame implements IGame, IView{
 
@@ -23,6 +25,8 @@ public class StopWatchGame implements IGame, IView{
 	TimeDigits _TimeDigits = new TimeDigits();
 	TouchHandler _TouchHandler;
 	private Bitmap _ToggleBmp;
+	private Paint _TextPaint;
+	private FramesPerSecond _FPS;
 
 	public Model getModel()
 	{
@@ -32,6 +36,10 @@ public class StopWatchGame implements IGame, IView{
 		_Model = model;
 		_Presenter = new Presenter(model, this);
         _Buffer = new FrameBuffer(BUFFER_WIDTH, BUFFER_HEIGHT);
+        _FPS = new FramesPerSecond();
+		_TextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		_TextPaint.setColor(Color.WHITE);
+		_TextPaint.setTextSize(36);
 	}
 	public void initialize()
 	{
@@ -71,9 +79,9 @@ public class StopWatchGame implements IGame, IView{
 		//Draw buttons
 		_Buffer.draw(Assets.ResetBtn,40,440);
 		_Buffer.draw(_ToggleBmp,640,440);
-		
 		_Buffer.scaleToFit(c);
-		
+		_FPS.CalculateFPS();
+		c.drawText(_FPS.getFPS(), 0, 36, _TextPaint);
 	}
     private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
         if(event.x > x && event.x < x + width - 1 && 

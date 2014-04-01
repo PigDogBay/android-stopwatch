@@ -2,8 +2,6 @@ package com.pigdogbay.stopwatch;
 
 import java.util.Date;
 
-import com.pigdogbay.androidutils.utils.StringUtils;
-
 public class Model {
 
 	private boolean _Running;
