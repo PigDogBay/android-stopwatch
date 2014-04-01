@@ -59,11 +59,11 @@ public class MainActivity extends Activity{
 		try{
 			String data = prefs.getString(MODEL_PREFERENCES_KEY, "");
 			_StopWatchGame.getModel().load(data);
-	        _StopWatchGame.initialize();
 		}catch (Exception e){
 			_StopWatchGame.getModel().setRunning(false);
 			_StopWatchGame.getModel().reset();
 		}
+        _StopWatchGame.initialize();
 		_GameView.resume();
 	}
 	@Override
