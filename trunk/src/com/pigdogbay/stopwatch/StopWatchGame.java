@@ -24,6 +24,10 @@ public class StopWatchGame implements IGame, IView{
 	TouchHandler _TouchHandler;
 	private Bitmap _ToggleBmp;
 
+	public Model getModel()
+	{
+		return _Model;
+	}
 	public StopWatchGame(Model model){
 		_Model = model;
 		_Presenter = new Presenter(model, this);
@@ -31,7 +35,7 @@ public class StopWatchGame implements IGame, IView{
 	}
 	public void initialize()
 	{
-		_ToggleBmp = Assets.StartBtn;
+		_Presenter.updateView();
 	}
 	
 	public void setTouchHandler(TouchHandler touch){
