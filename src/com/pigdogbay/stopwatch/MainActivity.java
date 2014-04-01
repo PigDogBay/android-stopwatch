@@ -5,7 +5,9 @@ import com.pigdogbay.androidutils.games.GameView;
 import com.pigdogbay.androidutils.games.MultiTouchHandler;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap.Config;
 import android.util.Log;
 import android.view.Window;
@@ -14,6 +16,7 @@ import android.widget.Button;
 
 public class MainActivity extends Activity{
 
+	public static final String MODEL_PREFERENCES_KEY = "MODEL_PREFERENCES_KEY";
 	GameView _GameView;
 	StopWatchGame _StopWatchGame;
 	Button _StartStopBtn;
@@ -36,9 +39,6 @@ public class MainActivity extends Activity{
                 / getWindowManager().getDefaultDisplay().getHeight();
         MultiTouchHandler touch = new MultiTouchHandler(_GameView, scaleX,scaleY);
         _StopWatchGame.setTouchHandler(touch);
-        _StopWatchGame.initialize();
-
-		
 	}
 	private void loadResources()
 	{
@@ -54,12 +54,28 @@ public class MainActivity extends Activity{
 	protected void onResume() {
 		super.onResume();
 		Log.v("MPDB", "onResume");
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);		
+		try{
+			String data = prefs.getString(MODEL_PREFERENCES_KEY, "");
+			_StopWatchGame.getModel().load(data);
+	        _StopWatchGame.initialize();
+		}catch (Exception e){
+			_StopWatchGame.getModel().setRunning(false);
+			_StopWatchGame.getModel().reset();
+		}
 		_GameView.resume();
 	}
 	@Override
 	protected void onPause() {
 		super.onPause();
 		Log.v("MPDB", "onPause");
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);		
+		String data  = _StopWatchGame.getModel().save();
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(MODEL_PREFERENCES_KEY, data);
+		editor.commit();
 		_GameView.pause();
 	}
 	@Override

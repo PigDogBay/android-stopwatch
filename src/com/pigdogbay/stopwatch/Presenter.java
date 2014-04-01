@@ -9,7 +9,6 @@ public class Presenter {
 	{
 		_Model = model;
 		_View = view;
-		updateView();
 	}
 	
 	public void toggleTimer(){
@@ -24,7 +23,7 @@ public class Presenter {
 		}
 	}
 	
-	private void updateView(){
+	public void updateView(){
 		if (_Model.isRunning())
 		{
 			_View.showRunning();
