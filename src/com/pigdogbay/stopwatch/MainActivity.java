@@ -37,7 +37,9 @@ public class MainActivity extends Activity{
                 / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float) StopWatchGame.BUFFER_HEIGHT
                 / getWindowManager().getDefaultDisplay().getHeight();
-        MultiTouchHandler touch = new MultiTouchHandler(_GameView, scaleX,scaleY);
+        ObjectTouchHandler touch = new ObjectTouchHandler();
+        touch.setXScale(scaleX);
+        touch.setYScale(scaleY);
         _StopWatchGame.setTouchHandler(touch);
 	}
 	private void loadResources()
@@ -46,8 +48,11 @@ public class MainActivity extends Activity{
 		AssetsReader assets = new AssetsReader(this);
 		Assets.DigitsSheet =  assets.loadBitmap("digits_red.png", Config.RGB_565);
 		Assets.ResetBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
+		Assets.ResetPressedBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
 		Assets.StartBtn =  assets.loadBitmap("start.png", Config.RGB_565);
+		Assets.StartPressedBtn =  assets.loadBitmap("start.png", Config.RGB_565);
 		Assets.StopBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
+		Assets.StopPressedBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
 	}
 	
 	@Override

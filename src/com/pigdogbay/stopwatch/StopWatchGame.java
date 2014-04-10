@@ -1,13 +1,9 @@
 package com.pigdogbay.stopwatch;
 
-import java.util.List;
-
 import com.pigdogbay.androidutils.games.FrameBuffer;
 import com.pigdogbay.androidutils.games.GameView.IGame;
-import com.pigdogbay.androidutils.games.TouchEvent;
-import com.pigdogbay.androidutils.games.TouchHandler;
+import com.pigdogbay.stopwatch.BitmapButton.OnClickListener;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,15 +14,19 @@ public class StopWatchGame implements IGame, IView{
 	public static final int BUFFER_WIDTH = 1280;
 	final static int DIGIT_WIDTH = 100;
 	final static int DIGIT_HEIGHT = 320;
+	final static int RESET_X = 40;
+	final static int RESET_Y = 440;
+	final static int START_X = 640;
+	final static int START_Y = 440;
 	
 	Presenter _Presenter;
 	Model _Model;
 	FrameBuffer _Buffer;
 	TimeDigits _TimeDigits = new TimeDigits();
-	TouchHandler _TouchHandler;
-	private Bitmap _ToggleBmp;
+	ObjectTouchHandler _TouchHandler;
 	private Paint _TextPaint;
 	private FramesPerSecond _FPS;
+	private BitmapButton _ResetBtn, _StartBtn;
 
 	public Model getModel()
 	{
@@ -40,35 +40,37 @@ public class StopWatchGame implements IGame, IView{
 		_TextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		_TextPaint.setColor(Color.WHITE);
 		_TextPaint.setTextSize(36);
+		_ResetBtn= new BitmapButton();
+		_StartBtn= new BitmapButton();
+		_StartBtn.setBitmaps(Assets.StartBtn,Assets.StartPressedBtn,START_X,START_Y);
+		_ResetBtn.setBitmaps(Assets.ResetBtn,Assets.ResetPressedBtn,RESET_X,RESET_Y);
+		_ResetBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(Object sender) {
+				_Presenter.reset();
+			}
+		});
+		_StartBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(Object sender) {
+				_Presenter.toggleTimer();
+			}
+		});
 	}
 	public void initialize()
 	{
 		_Presenter.updateView();
 	}
 	
-	public void setTouchHandler(TouchHandler touch){
+	public void setTouchHandler(ObjectTouchHandler touch){
 		_TouchHandler = touch;
+		_TouchHandler.add(_ResetBtn);
+		_TouchHandler.add(_StartBtn);
 	}
 
 	@Override
 	public void Update() {
 		_TimeDigits.updateTime(_Model.getElapsedTime());
-		List<TouchEvent> touchEvents = _TouchHandler.getTouchEvents();
-        int len = touchEvents.size();
-        for(int i = 0; i < len; i++) {
-            TouchEvent event = touchEvents.get(i);
-            if(event.type == TouchEvent.TOUCH_UP) {
-                if(inBounds(event, 40, 440, Assets.ResetBtn.getWidth(), Assets.ResetBtn.getHeight())) {
-                	_Presenter.reset();
-                	return;
-                }
-                if(inBounds(event, 640, 440, Assets.StartBtn.getWidth(), Assets.StartBtn.getHeight())) {
-                	_Presenter.toggleTimer();
-                	return;
-                }
-            }
-        }
-		
 	}
 	@Override
 	public void Render(Canvas c) {
@@ -76,34 +78,30 @@ public class StopWatchGame implements IGame, IView{
 		for (int i=0;i<12;i++){
 			_Buffer.draw(Assets.DigitsSheet,40+DIGIT_WIDTH*i,40,digits[i]*DIGIT_WIDTH,0,DIGIT_WIDTH, DIGIT_HEIGHT);
 		}
-		//Draw buttons
-		_Buffer.draw(Assets.ResetBtn,40,440);
-		_Buffer.draw(_ToggleBmp,640,440);
+		_StartBtn.draw(_Buffer);
+		_ResetBtn.draw(_Buffer);
 		_Buffer.scaleToFit(c);
 		_FPS.CalculateFPS();
 		c.drawText(_FPS.getFPS(), 0, 36, _TextPaint);
 	}
-    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
-        if(event.x > x && event.x < x + width - 1 && 
-           event.y > y && event.y < y + height - 1) 
-            return true;
-        else
-            return false;
-    }
 	
 	public void close()
 	{
 		_Buffer.close();
+		_TouchHandler.remove(_ResetBtn);
+		_TouchHandler.remove(_StartBtn);
+		_ResetBtn.setOnClickListener(null);
+		_StartBtn.setOnClickListener(null);
 	}
 
 	@Override
 	public void showPaused() {
-		_ToggleBmp = Assets.StartBtn;
+		_StartBtn.setBitmaps(Assets.StartBtn,Assets.StartPressedBtn,START_X,START_Y);
 	}
 
 	@Override
 	public void showRunning() {
-		_ToggleBmp = Assets.StopBtn;
+		_StartBtn.setBitmaps(Assets.StopBtn,Assets.StopPressedBtn,START_X,START_Y);
 	}
 
 }
