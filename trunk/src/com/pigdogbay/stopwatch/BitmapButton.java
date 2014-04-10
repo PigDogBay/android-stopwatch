@@ -50,7 +50,6 @@ public class BitmapButton implements ITouchable {
 	public boolean contains(int x, int y) {
 		return _Bounds.contains(x, y);
 	}
-
 	@Override
 	public void setTouchState(TouchState state) {
 		if (_IsPressed)
@@ -89,5 +88,4 @@ public class BitmapButton implements ITouchable {
 			_Listener.onClick(this);
 		}
 	}
-
 }
