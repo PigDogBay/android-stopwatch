@@ -12,28 +12,28 @@ public class BitmapButton implements ITouchable {
 	public interface OnClickListener{
 		void onClick(Object sender);
 	}
+
 	private OnClickListener _Listener;
+	private volatile Bitmap _Bitmap, _PressedBitmap;
+	private volatile int _X, _Y;
+	private volatile Rect _Bounds;
+	private volatile boolean _IsPressed;
+
+	public void setBitmaps(Bitmap bitmap, Bitmap pressedBitmap,int x, int y)
+	{
+		_Bitmap = bitmap;
+		_PressedBitmap = pressedBitmap;
+		_X=x;
+		_Y=y;
+		_Bounds.left = x;
+		_Bounds.top = y;
+		_Bounds.right = x+_Bitmap.getWidth();
+		_Bounds.bottom = y+_Bitmap.getHeight();
+	}
+
 	public void setOnClickListener(OnClickListener listener) {
 		_Listener = listener;
 	}
-	
-	private Bitmap _Bitmap, _PressedBitmap;
-	private int _X, _Y;
-	protected Rect _Bounds;
-	protected volatile boolean _IsPressed;
-	public BitmapButton(Bitmap bitmap, Bitmap pressedBitmap, int x, int y)  {
-		super();
-		_X=x;
-		_Y=y;
-		_Bitmap = bitmap;
-		_PressedBitmap = pressedBitmap;
-		_Bounds.left = x;
-		_Bounds.top = y;
-		_Bounds.right = x+bitmap.getWidth();
-		_Bounds.bottom = y+bitmap.getHeight();
-		
-	}
-
 
 	public void draw(FrameBuffer buffer){
 		if (_IsPressed)
