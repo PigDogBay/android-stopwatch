@@ -2,8 +2,6 @@ package com.pigdogbay.stopwatch;
 
 import com.pigdogbay.androidutils.games.AssetsReader;
 import com.pigdogbay.androidutils.games.GameView;
-import com.pigdogbay.androidutils.games.MultiTouchHandler;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
@@ -41,6 +39,7 @@ public class MainActivity extends Activity{
         touch.setXScale(scaleX);
         touch.setYScale(scaleY);
         _StopWatchGame.setTouchHandler(touch);
+        _GameView.setOnTouchListener(touch);
 	}
 	private void loadResources()
 	{

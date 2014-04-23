@@ -97,7 +97,11 @@ public class ObjectTouchHandler implements OnTouchListener {
 		switch (event.getActionMasked()) {
 		case MotionEvent.ACTION_DOWN:
 		case MotionEvent.ACTION_POINTER_DOWN:
-			findSelected(event);
+			_Selected = findSelected(event);
+			if (_Selected!=null)
+			{
+				_Selected.setTouchState(TouchState.Down);
+			}
 			break;
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_POINTER_UP:
@@ -131,16 +135,15 @@ public class ObjectTouchHandler implements OnTouchListener {
 		return _Selected.contains(x, y);
 	}
 
-	private void findSelected(MotionEvent event) {
+	private ITouchable findSelected(MotionEvent event) {
 		int x = (int) (event.getX() * _XScale);
 		int y = (int) (event.getY() * _YScale);
-		_Selected = null;
 		for (ITouchable t : _Touchables) {
 			if (t.contains(x, y)) {
-				_Selected = t;
-				break;
+				return t;
 			}
 		}
+		return null;
 
 	}
 }
