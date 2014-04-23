@@ -81,8 +81,8 @@ public class StopWatchGame implements IGame, IView{
 		_StartBtn.draw(_Buffer);
 		_ResetBtn.draw(_Buffer);
 		_Buffer.scaleToFit(c);
-		_FPS.CalculateFPS();
-		c.drawText(_FPS.getFPS(), 0, 36, _TextPaint);
+//		_FPS.CalculateFPS();
+//		c.drawText(_FPS.getFPS(), 0, 36, _TextPaint);
 	}
 	
 	public void close()
