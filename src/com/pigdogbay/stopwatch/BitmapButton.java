@@ -21,6 +21,7 @@ public class BitmapButton implements ITouchable {
 
 	public void setBitmaps(Bitmap bitmap, Bitmap pressedBitmap,int x, int y)
 	{
+		_Bounds = new Rect();
 		_Bitmap = bitmap;
 		_PressedBitmap = pressedBitmap;
 		_X=x;

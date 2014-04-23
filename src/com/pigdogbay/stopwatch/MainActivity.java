@@ -28,11 +28,11 @@ public class MainActivity extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		loadResources();
 		Model model = new Model();
 		_StopWatchGame = new StopWatchGame(model);
 		_GameView = new GameView(this, _StopWatchGame);
 		setContentView(_GameView);
-		loadResources();
         float scaleX = (float) StopWatchGame.BUFFER_WIDTH
                 / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float) StopWatchGame.BUFFER_HEIGHT
@@ -48,11 +48,11 @@ public class MainActivity extends Activity{
 		AssetsReader assets = new AssetsReader(this);
 		Assets.DigitsSheet =  assets.loadBitmap("digits_red.png", Config.RGB_565);
 		Assets.ResetBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
-		Assets.ResetPressedBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
+		Assets.ResetPressedBtn =  assets.loadBitmap("reset_pressed.png", Config.RGB_565);
 		Assets.StartBtn =  assets.loadBitmap("start.png", Config.RGB_565);
-		Assets.StartPressedBtn =  assets.loadBitmap("start.png", Config.RGB_565);
+		Assets.StartPressedBtn =  assets.loadBitmap("start_pressed.png", Config.RGB_565);
 		Assets.StopBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
-		Assets.StopPressedBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
+		Assets.StopPressedBtn =  assets.loadBitmap("stop_pressed.png", Config.RGB_565);
 	}
 	
 	@Override
