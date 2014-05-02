@@ -43,7 +43,7 @@ public class StopWatchGame implements IGame, IView, ITouchable {
 		_Presenter = new Presenter(model, this);
 		_Buffer = new FrameBuffer(BUFFER_WIDTH, BUFFER_HEIGHT);
 		_TextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		_TextPaint.setColor(Color.RED);
+		_TextPaint.setColor(Color.GREEN);
 		_TextPaint.setTextSize(36);
 	}
 
