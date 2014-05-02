@@ -2,6 +2,8 @@ package com.pigdogbay.stopwatch;
 
 import com.pigdogbay.androidutils.games.AssetsReader;
 import com.pigdogbay.androidutils.games.GameView;
+import com.pigdogbay.androidutils.games.ObjectTouchHandler;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
@@ -50,12 +52,6 @@ public class MainActivity extends Activity{
 		//Don't close the asset manager, as we will need if onCreate is called again
 		AssetsReader assets = new AssetsReader(this);
 		Assets.DigitsSheet =  assets.loadBitmap("digits_red.png", Config.RGB_565);
-		Assets.ResetBtn =  assets.loadBitmap("reset.png", Config.RGB_565);
-		Assets.ResetPressedBtn =  assets.loadBitmap("reset_pressed.png", Config.RGB_565);
-		Assets.StartBtn =  assets.loadBitmap("start.png", Config.RGB_565);
-		Assets.StartPressedBtn =  assets.loadBitmap("start_pressed.png", Config.RGB_565);
-		Assets.StopBtn =  assets.loadBitmap("stop.png", Config.RGB_565);
-		Assets.StopPressedBtn =  assets.loadBitmap("stop_pressed.png", Config.RGB_565);
 	}
 	
 	@Override
