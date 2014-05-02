@@ -51,7 +51,7 @@ public class MainActivity extends Activity{
 	{
 		//Don't close the asset manager, as we will need if onCreate is called again
 		AssetsReader assets = new AssetsReader(this);
-		Assets.DigitsSheet =  assets.loadBitmap("digits_red.png", Config.RGB_565);
+		Assets.DigitsSheet =  assets.loadBitmap("digits.png", Config.RGB_565);
 	}
 	
 	@Override
