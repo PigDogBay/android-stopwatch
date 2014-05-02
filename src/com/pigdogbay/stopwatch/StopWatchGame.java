@@ -2,9 +2,9 @@ package com.pigdogbay.stopwatch;
 
 import com.pigdogbay.androidutils.games.FrameBuffer;
 import com.pigdogbay.androidutils.games.GameView.IGame;
-import com.pigdogbay.stopwatch.BitmapButton.OnClickListener;
-import com.pigdogbay.stopwatch.ObjectTouchHandler.ITouchable;
-import com.pigdogbay.stopwatch.ObjectTouchHandler.TouchState;
+import com.pigdogbay.androidutils.games.ObjectTouchHandler;
+import com.pigdogbay.androidutils.games.ObjectTouchHandler.ITouchable;
+import com.pigdogbay.androidutils.games.ObjectTouchHandler.TouchState;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
