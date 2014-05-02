@@ -4,4 +4,5 @@ public interface IView {
 
 	void showPaused();
 	void showRunning();
+	void showReset();
 }

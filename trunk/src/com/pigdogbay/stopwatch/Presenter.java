@@ -20,6 +20,7 @@ public class Presenter {
 		if (!_Model.isRunning())
 		{
 			_Model.reset();
+			updateView();
 		}
 	}
 	
@@ -28,9 +29,12 @@ public class Presenter {
 		{
 			_View.showRunning();
 		}
-		else
+		else if (_Model.getElapsedTime() == 0) 
 		{
 			_View.showPaused();
+		}
+		else{
+			_View.showReset();
 		}
 		
 	}
