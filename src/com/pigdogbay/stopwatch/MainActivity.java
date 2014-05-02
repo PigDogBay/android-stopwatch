@@ -41,7 +41,6 @@ public class MainActivity extends Activity{
         touch.setYScale(scaleY);
         _StopWatchGame.setTouchHandler(touch);
         _GameView.setOnTouchListener(touch);
-        
 		new com.pigdogbay.androidutils.apprate.AppRate(this)
 		.setMinDaysUntilPrompt(7).setMinLaunchesUntilPrompt(5)
 		.init();

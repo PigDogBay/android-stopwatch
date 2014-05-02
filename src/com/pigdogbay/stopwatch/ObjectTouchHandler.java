@@ -45,6 +45,7 @@ public class ObjectTouchHandler implements OnTouchListener {
 	List<ITouchable> _Touchables;
 	ITouchable _Selected = null;
 	private float _XScale, _YScale;
+	public int _X,_Y;
 
 	public float getXScale() {
 		return _XScale;
@@ -89,6 +90,9 @@ public class ObjectTouchHandler implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		_X = (int) (event.getX() * _XScale);
+		_Y = (int) (event.getY() * _YScale);
+
 		if (event.getActionIndex() != 0) {
 			// ignore multi-touch events
 			return false;
@@ -97,7 +101,7 @@ public class ObjectTouchHandler implements OnTouchListener {
 		switch (event.getActionMasked()) {
 		case MotionEvent.ACTION_DOWN:
 		case MotionEvent.ACTION_POINTER_DOWN:
-			_Selected = findSelected(event);
+			_Selected = findSelected();
 			if (_Selected!=null)
 			{
 				_Selected.setTouchState(TouchState.Down);
@@ -106,7 +110,7 @@ public class ObjectTouchHandler implements OnTouchListener {
 		case MotionEvent.ACTION_UP:
 		case MotionEvent.ACTION_POINTER_UP:
 			if (_Selected != null) {
-				state = contains(event) ? TouchState.UpInside
+				state = _Selected.contains(_X,_Y) ? TouchState.UpInside
 						: TouchState.UpOutside;
 				_Selected.setTouchState(state);
 			}
@@ -118,7 +122,7 @@ public class ObjectTouchHandler implements OnTouchListener {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if (_Selected != null) {
-				state = contains(event) ? TouchState.DragInside
+				state = _Selected.contains(_X,_Y) ? TouchState.DragInside
 						: TouchState.DragOutside;
 				_Selected.setTouchState(state);
 			}
@@ -129,17 +133,9 @@ public class ObjectTouchHandler implements OnTouchListener {
 		return _Selected != null;
 	}
 
-	private boolean contains(MotionEvent event) {
-		int x = (int) (event.getX() * _XScale);
-		int y = (int) (event.getY() * _YScale);
-		return _Selected.contains(x, y);
-	}
-
-	private ITouchable findSelected(MotionEvent event) {
-		int x = (int) (event.getX() * _XScale);
-		int y = (int) (event.getY() * _YScale);
+	private ITouchable findSelected() {
 		for (ITouchable t : _Touchables) {
-			if (t.contains(x, y)) {
+			if (t.contains(_X,_Y)) {
 				return t;
 			}
 		}
